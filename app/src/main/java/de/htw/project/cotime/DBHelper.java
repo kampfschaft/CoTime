@@ -6,16 +6,12 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.Toast;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.Date;
-
 import java.util.ArrayList;
-
 import static de.htw.project.cotime.MainActivity.fetchUser;
 
 public class DBHelper extends SQLiteOpenHelper {
@@ -238,77 +234,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return res;
     }
 
-
-
-    // Nur zum testen
-    public Cursor getAllZiel2() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "SELECT * FROM " + NOTE_TABLE_NAME , null );
-        return res;
-    }
-    // Nur zum testen
-    public Cursor getAllZiel() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "SELECT * FROM " + ZIEL_TABLE_NAME + ", " + NOTE_TABLE_NAME+
-                " WHERE " + ZIEL_TABLE_NAME + "." + ZIEL_COLUMN_ID +  " = " + NOTE_COLUMN_NOTETAT_ID +
-                " AND " + NOTE_COLUMN_TAG + " = " + getDayNow(), null );
-        return res;
-    }
-
-    // Nur zum testen
-    public Cursor getAllAcc() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "SELECT * FROM " + ACC_TABLE_NAME, null );
-        return res;
-    }
-
-    // Nur zum testen
-    public Cursor getAllNote() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "SELECT * FROM " + NOTE_TABLE_NAME, null );
-        return res;
-    }
-
-    // Nur zum testen
-    public Cursor getAllAccTatTest() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "SELECT * FROM " + ACCTAT_TABLE_NAME, null );
-        return res;
-    }
-
-    // Nur zum testen
-    public Cursor getAllAccTat(){
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "SELECT * FROM " + ACCTAT_TABLE_NAME + ", " + ACC_TABLE_NAME + ", " + ZIEL_TABLE_NAME + ", " + NOTE_TABLE_NAME +
-                " WHERE " + ACCTAT_COLUMN_USER + " = " + ACC_TABLE_NAME + "." + ACC_COLUMN_ID +
-                " AND " + ACCTAT_COLUMN_ZIEL + " = " + ZIEL_TABLE_NAME + "." + ZIEL_COLUMN_ID +
-                " AND " + NOTE_TABLE_NAME + "." + NOTE_COLUMN_NOTETAT_ID + " = " + ZIEL_TABLE_NAME + "." + ZIEL_COLUMN_ID, null );
-        return res;
-    }
-
     // Show all at MainActivity
-    public Cursor getAllFinal(String user){
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "SELECT * FROM " + ACCTAT_TABLE_NAME + ", " + ACC_TABLE_NAME + ", " + ZIEL_TABLE_NAME + ", " + NOTE_TABLE_NAME +
-                " WHERE " + ACCTAT_COLUMN_USER + " = " + ACC_TABLE_NAME + "." + ACC_COLUMN_ID +
-                " AND " + ACCTAT_COLUMN_ZIEL + " = " + ZIEL_TABLE_NAME + "." + ZIEL_COLUMN_ID +
-                " AND " + NOTE_TABLE_NAME + "." + NOTE_COLUMN_NOTETAT_ID + " = " + ZIEL_TABLE_NAME + "." + ZIEL_COLUMN_ID +
-                " AND " + ACC_COLUMN_EMAIL + "= '" + user + "'" , null );
-        return res;
-    }
-
-    public Cursor getAllFinalTest(String user){
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "SELECT *, MAX(" + NOTE_COLUMN_ANZAHL + ")"+
-                " FROM " + ACCTAT_TABLE_NAME + ", " + ACC_TABLE_NAME + ", " + ZIEL_TABLE_NAME + ", " + NOTE_TABLE_NAME +
-                " WHERE " + ACCTAT_COLUMN_USER + " = " + ACC_TABLE_NAME + "." + ACC_COLUMN_ID +
-                " AND " + ACCTAT_COLUMN_ZIEL + " = " + ZIEL_TABLE_NAME + "." + ZIEL_COLUMN_ID +
-                " AND " + NOTE_TABLE_NAME + "." + NOTE_COLUMN_NOTETAT_ID + " = " + ZIEL_TABLE_NAME + "." + ZIEL_COLUMN_ID +
-                " AND " + ACC_COLUMN_EMAIL + "= '" + user + "'" +
-                " GROUP BY " + ZIEL_TABLE_NAME + "." + ZIEL_COLUMN_ID, null );
-        return res;
-    }
-
     public Cursor getAllUpper(String user, int g){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res =  db.rawQuery( "SELECT *, MAX(" + NOTE_COLUMN_ANZAHL + ")"+
@@ -321,7 +247,6 @@ public class DBHelper extends SQLiteOpenHelper {
                 " GROUP BY " + ZIEL_TABLE_NAME + "." + ZIEL_COLUMN_ID, null );
         return res;
     }
-
 
     //-begin-----------------method to compare user input with email database-----------------
     public String checkEmail (String userInput)
@@ -453,7 +378,6 @@ public class DBHelper extends SQLiteOpenHelper {
     }
     //---end----------------method to get limit---------------------------------------
 
-
     //-begin-----------------method to get label for twoWayView--------------------------------------------
     public List<String> getAllLabels(){
         List<String> labels = new ArrayList<String>();
@@ -485,34 +409,8 @@ public class DBHelper extends SQLiteOpenHelper {
     }
     //-end-----------------method to get label for twoWayView--------------------------------------------
 
-    //-begin-----------------method to reset done value--------------------------------------------
-    public void startNewWeek()
-    {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(NOTE_COLUMN_ANZAHL, 0);
-        db.update(NOTE_TABLE_NAME, contentValues, null, null );
-
-
-
-        //String query = "UPDATE " + NOTE_TABLE_NAME + " SET " +  NOTE_COLUMN_ANZAHL + " = " + 0 ;
-        //db.rawQuery("UPDATE " + NOTE_TABLE_NAME + " SET " +  NOTE_COLUMN_ANZAHL + " = ?", new String[] { Integer.toString(0) });
-        //db.close();
-    }
-
-
-    //int idServizo = 150;``
-    //String updateQuery ="UPDATE myTable SET sync = 1 WHERE id_servizio = "+idServizio;
-    //Cursor c= dbManager.RawQuery(updateQuery, null);
-
-    //c.moveToFirst();
-    //c.close();
-    // new String[] { Integer.toString(id) }
-    //-end-----------------method to reset done value--------------------------------------------
-
-    //-begin-----------------method to get label for twoWayView--------------------------------------------
-    public int startNewWeek2(){
+    //-begin-----------------method to reset week--------------------------------------------
+    public void startNewWeek(){
         List<String> ids = new ArrayList<String>();
 
         String selectQuery = "SELECT " + NOTE_COLUMN_NOTETAT_ID +" FROM " + ZIEL_TABLE_NAME + "," +ACCTAT_TABLE_NAME +", " + ACC_TABLE_NAME + ", " + NOTE_TABLE_NAME +
@@ -537,7 +435,7 @@ public class DBHelper extends SQLiteOpenHelper {
         //transfer id into array string
         String[] s_id = new String[ids.size()];
         s_id = ids.toArray(s_id);
-        int k = 0;
+
         String updateQuery = "SELECT " + NOTE_COLUMN_NOTETAT_ID+", "+ NOTE_COLUMN_ANZAHL + " FROM " + NOTE_TABLE_NAME;
         SQLiteDatabase dbToUpdate = this.getWritableDatabase();
         Cursor cursorToUpdate = dbToUpdate.rawQuery(updateQuery, null);
@@ -556,11 +454,10 @@ public class DBHelper extends SQLiteOpenHelper {
                         contentValues.put(NOTE_COLUMN_ANZAHL, 0);
                         dbUpdated.update(NOTE_TABLE_NAME, contentValues, NOTE_COLUMN_NOTETAT_ID + " = " + Integer.parseInt(s_id[i]), null );
                         dbUpdated.close();
-                        k = k+1;
                     }
                     else
                     {
-                        k = m;
+                        //do nothing
                     }
                 } while (cursorToUpdate.moveToNext());
             }
@@ -568,9 +465,8 @@ public class DBHelper extends SQLiteOpenHelper {
         // closing connection
         cursorToUpdate.close();
         dbToUpdate.close();
-        return k;
     }
-    //-end-----------------method to get label for twoWayView--------------------------------------------
+    //-end-----------------method to reset week--------------------------------------------
 
 }
 

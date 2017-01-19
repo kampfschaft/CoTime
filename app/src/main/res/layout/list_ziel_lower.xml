@@ -3,10 +3,6 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-
-
-
     <TextView
         android:id="@+id/layout_taetigkeit2"
         android:layout_width="0dp"
@@ -16,7 +12,6 @@
         android:paddingBottom="10dp"
         android:gravity="left"
         android:textSize="10dp"/>
-
     <TextView
         android:id="@+id/layout_anzahl2"
         android:layout_width="0dp"
@@ -26,8 +21,6 @@
         android:paddingBottom="10dp"
         android:textSize="10dp"
         android:gravity="center"/>
-
-
     <TextView
         android:id="@+id/layout_einheit2"
         android:layout_width="0dp"
@@ -37,7 +30,6 @@
         android:paddingBottom="10dp"
         android:textSize="10dp"
         android:gravity="center"/>
-
     <TextView
         android:id="@+id/layout_targetValue2"
         android:layout_width="0dp"
@@ -47,7 +39,4 @@
         android:paddingBottom="10dp"
         android:textSize="10dp"
         android:gravity="center" />
-
-
-
 </LinearLayout>
