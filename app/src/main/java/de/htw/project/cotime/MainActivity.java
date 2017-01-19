@@ -166,18 +166,32 @@ public class MainActivity extends AppCompatActivity implements  OnItemSelectedLi
     {
         int anzahl = dbHelper.getAnzahlValue(fetchUser(), tat, day);
         int target = dbHelper.getTargetValue(fetchUser(), tat);
+        int today = dbHelper.getDayNow();
         int percentage;
+        //for upper limit
         if (limit == 1)
         {
             if (target == 0)
-            {percentage = 0;}
+            {percentage = 100;}
             else
             {percentage = (anzahl*100)/target;}
         }
+        //for lower limit
         else
         {
-            // calculation for lower limit graph is not possible for the time being
-            percentage = 1;
+            //if user made 0 task for a target of 0 today, get 100%
+            if (anzahl == 0 && target == 0 && day == today)
+            {percentage = 100;}
+            //for initial values, when the user still have not insert any value
+            else if (anzahl == 0)
+            {percentage = 0;}
+            else
+            {
+                //change target to 1 so that percentage will not be 0
+                if (target == 0)
+                {target = 1;}
+                percentage = (target*100)/anzahl;
+            }
         }
         return percentage;
     }
