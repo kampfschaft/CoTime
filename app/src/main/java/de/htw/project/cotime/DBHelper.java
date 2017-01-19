@@ -202,6 +202,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
     //---end----------update Ziel-------------------------------------
 
+
     //get number of rows
     public int numberOfRows(String table_name) {
         SQLiteDatabase db = this.getReadableDatabase();
