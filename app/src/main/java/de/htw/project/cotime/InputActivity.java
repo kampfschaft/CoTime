@@ -123,10 +123,12 @@ public class InputActivity extends ActionBarActivity implements View.OnClickList
             if (column_grenze == 1)
             {
                 grenzeUpper.setChecked(true);
+                grenze = 1;
             }
             else if (column_grenze == 0)
             {
                 grenzeLower.setChecked(true);
+                grenze = 0;
             }
         }
     }
