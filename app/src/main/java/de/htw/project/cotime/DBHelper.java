@@ -433,6 +433,26 @@ public class DBHelper extends SQLiteOpenHelper {
     }
     //---end----------------method to get target value---------------------------------------
 
+    //---begin----------------method to get limit---------------------------------------
+    public int getLimit(String tat, String user){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "SELECT " + ZIEL_COLUMN_GRENZE + " FROM " + ACCTAT_TABLE_NAME + ", " + ACC_TABLE_NAME + ", " + ZIEL_TABLE_NAME +
+                " WHERE " + ACCTAT_COLUMN_USER + " = " + ACC_TABLE_NAME + "." + ACC_COLUMN_ID +
+                " AND " + ACCTAT_COLUMN_ZIEL + " = " + ZIEL_TABLE_NAME + "." + ZIEL_COLUMN_ID +
+                " AND " + ACC_COLUMN_EMAIL + " = '" + user + "'" +
+                " AND " + ZIEL_COLUMN_TAETIGKEIT + " = '" + tat + "'" , null );
+
+        int temp = 0;
+
+        if(res.moveToFirst())
+        {
+            int gVal = res.getColumnIndex(ZIEL_COLUMN_GRENZE);
+            temp = res.getInt(gVal);
+        }
+        return temp;
+    }
+    //---end----------------method to get limit---------------------------------------
+
 
     //-begin-----------------method to get label for twoWayView--------------------------------------------
     public List<String> getAllLabels(){

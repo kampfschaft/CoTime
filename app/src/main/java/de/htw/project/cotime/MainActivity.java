@@ -165,6 +165,7 @@ public class MainActivity extends AppCompatActivity implements  OnItemSelectedLi
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String label = parent.getItemAtPosition(position).toString();
+                int limit = dbHelper.getLimit(label, fetchUser());
                 graph = (GraphView) findViewById(R.id.graphView);
                 noGraph = (TextView)findViewById(R.id.nograph);
                 if (label == "ABMELDEN")
@@ -205,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements  OnItemSelectedLi
                 else
                 {
                     Toast.makeText(parent.getContext(), "Tätigkeit: " + label, Toast.LENGTH_LONG).show();
-                    createGraph(label);
+                    createGraph(label, limit);
                 }
             }
         });
@@ -225,20 +226,27 @@ public class MainActivity extends AppCompatActivity implements  OnItemSelectedLi
 
     //method to calculate percentage from task done and target
     //gives result for yaxis of graph
-    public int getGraphY(String tat, int day)
+    public int getGraphY(String tat, int limit, int day)
     {
         int anzahl = dbHelper.getAnzahlValue(fetchUser(), tat, day);
         int target = dbHelper.getTargetValue(fetchUser(), tat);
         int percentage;
-        if (target == 0)
-        {percentage = 0;}
+        if (limit == 1)
+        {
+            if (target == 0)
+            {percentage = 0;}
+            else
+            {percentage = (anzahl*100)/target;}
+        }
         else
-        {percentage = (anzahl*100)/target;}
+        {
+            percentage = 90;
+        }
         return percentage;
     }
 
     //method to create graph
-    public void createGraph(String label)
+    public void createGraph(String label, int limit)
     {
         graph.setVisibility(View.VISIBLE);
         noGraph.setVisibility(View.GONE);
@@ -247,13 +255,13 @@ public class MainActivity extends AppCompatActivity implements  OnItemSelectedLi
         graph.removeAllSeries();
         //read new series from db
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
-                new DataPoint(1, getGraphY(label, 1)),
-                new DataPoint(2, getGraphY(label, 2)),
-                new DataPoint(3, getGraphY(label, 3)),
-                new DataPoint(4, getGraphY(label, 4)),
-                new DataPoint(5, getGraphY(label, 5)),
-                new DataPoint(6, getGraphY(label, 6)),
-                new DataPoint(7, getGraphY(label, 7))
+                new DataPoint(1, getGraphY(label, limit, 1)),
+                new DataPoint(2, getGraphY(label, limit, 2)),
+                new DataPoint(3, getGraphY(label, limit, 3)),
+                new DataPoint(4, getGraphY(label, limit, 4)),
+                new DataPoint(5, getGraphY(label, limit, 5)),
+                new DataPoint(6, getGraphY(label, limit, 6)),
+                new DataPoint(7, getGraphY(label, limit, 7))
         });
 
         //create graph
