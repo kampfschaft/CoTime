@@ -12,11 +12,11 @@
     <string name="hint_act_anpassen_einheit">Einheit:</string>
 
     <string name="hint_act_login_email">Email</string>
-    <string name="hint_act_login_password">Password</string>
-    <string name="hint_act_login_button">LOGIN</string>
-    <string name="hint_act_login_reg">Register</string>
+    <string name="hint_act_login_password">Kennwort</string>
+    <string name="hint_act_login_button">Anmelden</string>
+    <string name="hint_act_login_reg">Registrieren</string>
 
-    <string name="hint_act_login_passwordConfirm">Retype password</string>
+    <string name="hint_act_login_passwordConfirm">Kenntwort erneut eingeben</string>
     <string name="hint_act_login_hiddenSave">Speichern</string>
     <string name="hint_act_login_hiddenCancel">Abbrechen</string>
 

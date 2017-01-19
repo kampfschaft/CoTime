@@ -33,12 +33,11 @@ public class MainActivity extends AppCompatActivity implements  OnItemSelectedLi
 
     public final static String KEY_EXTRA_ID = "KEY_EXTRA_ID";
 
-    private ListView listView;
     private ListView listView1, listView2;
     DBHelper dbHelper;
 
     SessionManager session;
-    Button btnLogout, btnNeuesZiel;
+    Button btnNeuesZiel;
 
     public static String log_user;
 
@@ -92,64 +91,6 @@ public class MainActivity extends AppCompatActivity implements  OnItemSelectedLi
         slider = (TwoWayView) findViewById(R.id.main_slider);
         loadSliderData();
         loadViewListData(name);
-
-        //-begin-----------------show final tabelle---------------------------------------
-
-        //-end-----------------show final tabelle--------------------------------------------
-
-
-        /*
-        //-begin-----------------show tat tabelle---------------------------------------
-        final Cursor cursorFinal = dbHelper.getAllFinalTest(name);
-
-        String [] columnsFinal = new String[] {
-                //DBHelper.ACC_COLUMN_ID,
-                //DBHelper.ACC_COLUMN_EMAIL,
-                //DBHelper.ACCTAT_COLUMN_DEFAULT_ID,
-                //DBHelper.ACCTAT_COLUMN_USER,
-                //DBHelper.ACCTAT_COLUMN_ZIEL
-                DBHelper.ZIEL_COLUMN_ID,
-                DBHelper.ZIEL_COLUMN_TAETIGKEIT,
-                //DBHelper.NOTE_COLUMN_NOTE_DEFAULT_ID,
-                DBHelper.NOTE_COLUMN_NOTETAT_ID,
-                DBHelper.NOTE_COLUMN_ANZAHL,
-                DBHelper.ZIEL_COLUMN_EINHEIT,
-                DBHelper.ZIEL_COLUMN_TARGETVALUE,
-                //DBHelper.ZIEL_COLUMN_GRENZE,
-                DBHelper.NOTE_COLUMN_TAG,
-                DBHelper.NOTE_COLUMN_DATUM
-        };
-        int [] widgetsFinal = new int[] {
-                R.id.layout_emailid6,
-                R.id.layout_email6,
-                R.id.layout_taetigkeitid6,
-                //R.id.layout_taetigkeit6,
-                R.id.layout_anzahl6,
-                R.id.layout_einheit6,
-                R.id.layout_targetValue6,
-                R.id.layout_grenze6,
-                R.id.layout_datum6,
-
-        };
-
-        SimpleCursorAdapter cursorAdapterFinal = new SimpleCursorAdapter(this, R.layout.list_ziel,
-                cursorFinal, columnsFinal, widgetsFinal, 0);
-        listView = (ListView)findViewById(R.id.listView6);
-        listView.setAdapter(cursorAdapterFinal);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> listView, View view,
-                                    int position, long id) {
-                Cursor itemCursor = (Cursor) MainActivity.this.listView.getItemAtPosition(position);
-                int zielID = itemCursor.getInt(itemCursor.getColumnIndex(DBHelper.NOTE_COLUMN_NOTETAT_ID));
-                Intent intent = new Intent(getApplicationContext(), InputActivity.class);
-                intent.putExtra(KEY_EXTRA_ID, zielID);
-                startActivity(intent);
-            }
-        });
-        //-end-----------------show final tabelle--------------------------------------------
-        */
     }
 
     //-begin-----------------load slider date-----------------------------------------
@@ -175,18 +116,13 @@ public class MainActivity extends AppCompatActivity implements  OnItemSelectedLi
                 }
                 else if (label == "NEUE WOCHE STARTEN")
                 {
-                    //DBHelper db = new DBHelper(getApplicationContext());
-                    //db.startNewWeek();
-
                     AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                     builder.setMessage(R.string.startnewweek)
                             .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
 
                                     DBHelper db = new DBHelper(getApplicationContext());
-                                    int hint;
-                                    hint = db.startNewWeek2();
-                                    Toast.makeText(getApplicationContext(), Integer.toString(hint), Toast.LENGTH_SHORT).show();
+                                    db.startNewWeek();
                                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(intent);
@@ -240,7 +176,8 @@ public class MainActivity extends AppCompatActivity implements  OnItemSelectedLi
         }
         else
         {
-            percentage = 90;
+            // calculation for lower limit graph is not possible for the time being
+            percentage = 1;
         }
         return percentage;
     }
@@ -292,39 +229,22 @@ public class MainActivity extends AppCompatActivity implements  OnItemSelectedLi
     //get logged in user
     public static String fetchUser() {return log_user;}
 
-    //----------------------------------------------------------------------------------------------
+    //---begin-------------method to show the tables--------------------------------------------------
     public void loadViewListData(String user)
     {
         final Cursor cursorUpper = dbHelper.getAllUpper(user, 1);
 
         String [] columnsUpper = new String[] {
-                //DBHelper.ACC_COLUMN_ID,
-                //DBHelper.ACC_COLUMN_EMAIL,
-                //DBHelper.ACCTAT_COLUMN_DEFAULT_ID,
-                //DBHelper.ACCTAT_COLUMN_USER,
-                //DBHelper.ACCTAT_COLUMN_ZIEL
-                //DBHelper.ZIEL_COLUMN_ID,
                 DBHelper.ZIEL_COLUMN_TAETIGKEIT,
-                //DBHelper.NOTE_COLUMN_NOTE_DEFAULT_ID,
-                //DBHelper.NOTE_COLUMN_NOTETAT_ID,
                 DBHelper.NOTE_COLUMN_ANZAHL,
                 DBHelper.ZIEL_COLUMN_EINHEIT,
                 DBHelper.ZIEL_COLUMN_TARGETVALUE,
-                //DBHelper.ZIEL_COLUMN_GRENZE,
-                //DBHelper.NOTE_COLUMN_TAG,
-                //DBHelper.NOTE_COLUMN_DATUM
         };
         int [] widgetsUpper = new int[] {
-                //R.id.layout_emailid1,
-                //R.id.layout_email1,
-                //R.id.layout_taetigkeitid1,
                 R.id.layout_taetigkeit1,
                 R.id.layout_anzahl1,
                 R.id.layout_einheit1,
                 R.id.layout_targetValue1,
-                //R.id.layout_grenze1,
-                //R.id.layout_datum1,
-
         };
 
         SimpleCursorAdapter cursorAdapterUpper = new SimpleCursorAdapter(this, R.layout.list_ziel_upper,
@@ -347,33 +267,16 @@ public class MainActivity extends AppCompatActivity implements  OnItemSelectedLi
         final Cursor cursorLower = dbHelper.getAllUpper(user, 0);
 
         String [] columnsLower = new String[] {
-                //DBHelper.ACC_COLUMN_ID,
-                //DBHelper.ACC_COLUMN_EMAIL,
-                //DBHelper.ACCTAT_COLUMN_DEFAULT_ID,
-                //DBHelper.ACCTAT_COLUMN_USER,
-                //DBHelper.ACCTAT_COLUMN_ZIEL
-                //DBHelper.ZIEL_COLUMN_ID,
                 DBHelper.ZIEL_COLUMN_TAETIGKEIT,
-                //DBHelper.NOTE_COLUMN_NOTE_DEFAULT_ID,
-                //DBHelper.NOTE_COLUMN_NOTETAT_ID,
                 DBHelper.NOTE_COLUMN_ANZAHL,
                 DBHelper.ZIEL_COLUMN_EINHEIT,
                 DBHelper.ZIEL_COLUMN_TARGETVALUE,
-                //DBHelper.ZIEL_COLUMN_GRENZE,
-                //DBHelper.NOTE_COLUMN_TAG,
-                //DBHelper.NOTE_COLUMN_DATUM
         };
         int [] widgetsLower = new int[] {
-                //R.id.layout_emailid2,
-                //R.id.layout_email2,
-                //R.id.layout_taetigkeitid2,
                 R.id.layout_taetigkeit2,
                 R.id.layout_anzahl2,
                 R.id.layout_einheit2,
                 R.id.layout_targetValue2,
-                //R.id.layout_grenze2,
-                //R.id.layout_datum2,
-
         };
 
         SimpleCursorAdapter cursorAdapterLower = new SimpleCursorAdapter(this, R.layout.list_ziel_lower,
@@ -393,10 +296,7 @@ public class MainActivity extends AppCompatActivity implements  OnItemSelectedLi
             }
         });
     }
-
-
-
-
+    //---end-------------method to show the tables--------------------------------------------------
 }
 
 
