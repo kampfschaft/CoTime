@@ -1,0 +1,49 @@
+<resources>
+    <!--Name-->
+    <string name="app_name">CoTime</string>
+
+    <!--Title-->
+    <string name="title_act_anpassen">Ziel Anpassen</string>
+
+    <!--Hint-->
+    <string name="hint_act_anpassen_taetigkeit">Tätigkeit:</string>
+    <string name="hint_act_anpassen_targetValue">Ziel:</string>
+    <string name="hint_act_anpassen_anzahl">Geschafft:</string>
+    <string name="hint_act_anpassen_einheit">Einheit:</string>
+
+    <string name="hint_act_login_email">Email</string>
+    <string name="hint_act_login_password">Password</string>
+    <string name="hint_act_login_button">LOGIN</string>
+    <string name="hint_act_login_reg">Register</string>
+
+    <string name="hint_act_login_passwordConfirm">Retype password</string>
+    <string name="hint_act_login_hiddenSave">Speichern</string>
+    <string name="hint_act_login_hiddenCancel">Abbrechen</string>
+
+
+    <!--Box-->
+    <string name="box_act_anpassen_taetigkeit">Name der Tätigkeit</string>
+    <string name="box_act_anpassen_targetValue">Anzahl pro Woche</string>
+    <string name="box_act_anpassen_anzahl">Bisher gemacht</string>
+    <string name="box_act_anpassen_einheit">Einheit</string>
+
+
+    <!--Buttons-->
+    <string name="btn_act_main_ziel">Neues Ziel Einfügen</string>
+    <string name="btn_act_anpassen_speichern">Ziel Speichern</string>
+    <string name="btn_act_anpassen_anpassen">Ziel Anpassen</string>
+    <string name="btn_act_anpassen_loeschen">Ziel Löschen</string>
+
+    <string name="btn_act_anpassen_anpassen1">Anpassen</string>
+    <string name="btn_act_anpassen_aktualisieren1">Aktualisieren</string>
+
+    <!--Radio Buttons-->
+    <string name="radioUpper">Mehr machen</string>
+    <string name="radioLower">Weniger machen</string>
+
+    <!--Messages-->
+    <string name="zielloeschen">Ziel wirklich löschen?</string>
+    <string name="startnewweek">Fangen wieder von Anfang an?</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nein</string>
+</resources>

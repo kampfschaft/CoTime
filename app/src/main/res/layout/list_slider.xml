@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/text1"
+    android:layout_width="wrap_content"
+    android:layout_height="48dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:hapticFeedbackEnabled="true"
+    android:fontFamily="sans-serif"
+    android:textStyle="normal"
+    android:textColor="#ffffff"
+    android:textSize="10dp"
+    android:textAppearance="?android:attr/textAppearanceListItemSmall"
+    android:gravity="center_vertical"
+    android:background="?android:attr/activatedBackgroundIndicator"
+    />
+
+    <!--#009688--><!--#00796B-->
